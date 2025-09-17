@@ -4,7 +4,7 @@
 
 use std::ops::{Deref, DerefMut};
 
-use serde::{Deserialize, Deserializer};
+use serde::{Deserialize, Deserializer, Serialize};
 use time::format_description::well_known::Iso8601;
 use xml_struct::XmlSerialize;
 
@@ -30,7 +30,7 @@ pub struct FolderShape {
 /// The item properties which should be included in the response.
 ///
 /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/itemshape>.
-#[derive(Clone, Debug, Default, XmlSerialize)]
+#[derive(Clone, Debug, Default, Serialize, XmlSerialize)]
 pub struct ItemShape {
     /// The base set of properties to include, which may be extended by other
     /// fields.
@@ -54,7 +54,7 @@ pub struct ItemShape {
 }
 
 /// An identifier for a property on an Exchange entity.
-#[derive(Clone, Debug, XmlSerialize)]
+#[derive(Clone, Debug, Serialize, XmlSerialize)]
 #[xml_struct(variant_ns_prefix = "t")]
 pub enum PathToElement {
     /// An identifier for an extended MAPI property.
@@ -167,7 +167,7 @@ pub struct ExtendedFieldURI {
 /// A well-known MAPI property set identifier.
 ///
 /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/extendedfielduri#distinguishedpropertysetid-attribute>
-#[derive(Clone, Copy, Debug, Deserialize, XmlSerialize, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Serialize, XmlSerialize, Eq, PartialEq)]
 #[xml_struct(text)]
 pub enum DistinguishedPropertySet {
     Address,
@@ -197,7 +197,7 @@ pub enum MessageDisposition {
 /// The type of the value of a MAPI property.
 ///
 /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/extendedfielduri#propertytype-attribute>
-#[derive(Clone, Copy, Debug, Deserialize, XmlSerialize, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Deserialize, Serialize, XmlSerialize, Eq, PartialEq)]
 #[xml_struct(text)]
 pub enum PropertyType {
     ApplicationTime,
@@ -229,7 +229,7 @@ pub enum PropertyType {
 /// Additional properties may be specified by the parent element.
 ///
 /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/baseshape>.
-#[derive(Clone, Copy, Debug, Default, XmlSerialize)]
+#[derive(Clone, Copy, Debug, Default, Serialize, XmlSerialize)]
 #[xml_struct(text)]
 pub enum BaseShape {
     /// Only the IDs of any items or folders returned.
@@ -346,7 +346,7 @@ pub enum DeleteType {
 ///
 /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/itemids>
 // N.B.: Commented-out variants are not yet implemented.
-#[derive(Clone, Debug, XmlSerialize)]
+#[derive(Clone, Debug, Serialize, XmlSerialize)]
 #[xml_struct(variant_ns_prefix = "t")]
 pub enum BaseItemId {
     /// An identifier for a standard Exchange item.
