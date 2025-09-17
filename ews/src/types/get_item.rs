@@ -3,7 +3,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 use ews_proc_macros::operation_response;
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use xml_struct::XmlSerialize;
 
 use crate::{BaseItemId, ItemShape, Items, MESSAGES_NS_URI};
@@ -12,7 +12,7 @@ use crate::{BaseItemId, ItemShape, Items, MESSAGES_NS_URI};
 /// calendar events, or contacts.
 ///
 /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/getitem>
-#[derive(Clone, Debug, XmlSerialize)]
+#[derive(Clone, Debug, Serialize, XmlSerialize)]
 #[xml_struct(default_ns = MESSAGES_NS_URI)]
 #[operation_response(GetItemResponseMessage)]
 pub struct GetItem {
