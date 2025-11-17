@@ -14,7 +14,7 @@ pub struct GetServerTimeZones {
     #[xml_struct(attribute)]
     pub return_full_time_zone_data: Option<bool>,
 
-    pub ids: Vec<TimeZoneId>,
+    pub ids: Option<Vec<TimeZoneId>>,
 }
 
 #[cfg(test)]
@@ -31,9 +31,9 @@ mod tests {
     fn serialize_get_server_time_zones_request() {
         let get_server_timezones = GetServerTimeZones {
             return_full_time_zone_data: Some(true),
-            ids: vec![TimeZoneId {
+            ids: Some(vec![TimeZoneId {
                 id: "Eastern Standard Time".to_string(),
-            }],
+            }]),
         };
 
         //let expected = r#"<m:GetServerTimeZones ReturnFullTimeZoneData="true"><m:Ids><t:Id>Eastern Standard Time</Id></m:Ids></m:GetServerTimeZones>"#;
