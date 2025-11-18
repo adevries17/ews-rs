@@ -22,7 +22,7 @@ pub struct GetServerTimeZones {
 #[derive(Clone, Debug, Deserialize, XmlSerialize, PartialEq, Eq)]
 #[serde(rename_all = "PascalCase")]
 pub struct GetServerTimeZonesResponseMessage {
-    time_zone_definitions: TimeZoneDefinitions,
+    pub time_zone_definitions: TimeZoneDefinitions,
 }
 
 #[cfg(test)]
