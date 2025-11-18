@@ -29,7 +29,7 @@ pub struct GetServerTimeZonesResponseMessage {
 mod tests {
     use crate::{
         test_utils::{assert_deserialized_content, assert_serialized_content},
-        timezone::TimeZoneDefinition,
+        timezone::{Periods, TimeZoneDefinition, TransitionsGroups},
         ResponseClass, ResponseMessages,
     };
 
@@ -59,8 +59,10 @@ mod tests {
                 <m:GetServerTimeZonesResponseMessage ResponseClass="Success">
                     <m:ResponseCode>NoError</m:ResponseCode>
                     <m:TimeZoneDefinitions>
-                        <t:TimeZoneDefinition Id="Eastern Standard Time" Name="(GMT-05:00) Eastern Time (US &amp; Canada)" />
-                        <t:TimeZoneDefinition Id="Pacific Standard Time" Name="(GMT-08:00) Pacific Time (US &amp; Canada)" />
+                    <t:TimeZoneDefinition Name="(UTC) Coordinated Universal Time" Id="UTC">
+                        <t:Periods />
+                        <t:TransitionsGroups />
+                    </t:TimeZoneDefinition>
                     </m:TimeZoneDefinitions>
                 </m:GetServerTimeZonesResponseMessage>
                 </m:ResponseMessages>
@@ -71,26 +73,16 @@ mod tests {
                 response_messages: vec![ResponseClass::Success(
                     GetServerTimeZonesResponseMessage {
                         time_zone_definitions: TimeZoneDefinitions {
-                            inner: vec![
-                                TimeZoneDefinition {
-                                    id: "Eastern Standard Time".to_string(),
-                                    name: Some(
-                                        r#"(GMT-05:00) Eastern Time (US & Canada)"#.to_string(),
-                                    ),
-                                    periods: None,
-                                    transitions_groups: None,
-                                    transitions: None,
+                            inner: vec![TimeZoneDefinition {
+                                id: "UTC".to_string(),
+                                name: Some(r#"(UTC) Coordinated Universal Time"#.to_string()),
+                                periods: Periods { period: vec![] },
+                                transitions_groups: TransitionsGroups {
+                                    id: None,
+                                    transitions: vec![],
                                 },
-                                TimeZoneDefinition {
-                                    id: "Pacific Standard Time".to_string(),
-                                    name: Some(
-                                        r#"(GMT-08:00) Pacific Time (US & Canada)"#.to_string(),
-                                    ),
-                                    periods: None,
-                                    transitions_groups: None,
-                                    transitions: None,
-                                },
-                            ],
+                                transitions: None,
+                            }],
                         },
                     },
                 )],

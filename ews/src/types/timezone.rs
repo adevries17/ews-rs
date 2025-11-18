@@ -21,11 +21,9 @@ pub struct TimeZoneDefinition {
     #[serde(rename = "@Name", skip_serializing_if = "Option::is_none")]
     pub name: Option<String>,
 
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub periods: Option<Periods>,
+    pub periods: Periods,
 
-    #[serde(skip_serializing_if = "Option::is_none")]
-    pub transitions_groups: Option<TransitionsGroups>,
+    pub transitions_groups: TransitionsGroups,
 
     #[serde(skip_serializing_if = "Option::is_none")]
     pub transitions: Option<Transitions>,
@@ -36,8 +34,13 @@ impl Default for TimeZoneDefinition {
         Self {
             id: "UTC".to_string(),
             name: Default::default(),
-            periods: Default::default(),
-            transitions_groups: Default::default(),
+            periods: Periods {
+                period: Default::default(),
+            },
+            transitions_groups: TransitionsGroups {
+                id: None,
+                transitions: Default::default(),
+            },
             transitions: Default::default(),
         }
     }
@@ -69,7 +72,7 @@ pub struct Period {
 pub struct TransitionsGroups {
     #[xml_struct(attribute)]
     #[serde(rename = "@Id")]
-    pub id: String,
+    pub id: Option<String>,
 
     #[serde(rename = "$value", default)]
     pub transitions: Vec<Transitions>,
