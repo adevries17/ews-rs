@@ -11,8 +11,10 @@ use serde::Deserialize;
 use xml_struct::XmlSerialize;
 
 use crate::{
-    response::ResponseCode, types::sealed, types::server_version, Error, MessageXml, Operation,
-    OperationResponse, SOAP_NS_URI, TYPES_NS_URI,
+    response::ResponseCode,
+    timezone::TimeZoneDefinition,
+    types::{sealed, server_version},
+    Error, MessageXml, Operation, OperationResponse, SOAP_NS_URI, TYPES_NS_URI,
 };
 
 mod de;
@@ -48,6 +50,14 @@ pub enum Header {
     ///
     /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/serverversioninfo>s
     ServerVersionInfo(server_version::ServerVersionInfo),
+
+    /// Used in the SOAP header to specify the time zone definition that is to be used as the default
+    /// when assigning the time zone for the `DateTime` properties of objects that are created, updated, and retrieved.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/timezonecontext>
+    TimeZoneContext {
+        time_zone_definition: TimeZoneDefinition,
+    },
 }
 
 /// A SOAP envelope containing the body of an EWS operation or response.
