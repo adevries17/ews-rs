@@ -115,5 +115,6 @@ pub struct RecurringDateTransition {
 /// Identifies a single time zone definition.
 #[derive(Clone, Debug, Deserialize, XmlSerialize, PartialEq, Eq)]
 pub struct TimeZoneId {
+    #[xml_struct(ns_prefix = "t")]
     pub id: String,
 }
