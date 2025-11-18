@@ -31,6 +31,18 @@ pub struct TimeZoneDefinition {
     pub transitions: Option<Transitions>,
 }
 
+impl Default for TimeZoneDefinition {
+    fn default() -> Self {
+        Self {
+            id: "UTC".to_string(),
+            name: Default::default(),
+            periods: Default::default(),
+            transitions_groups: Default::default(),
+            transitions: Default::default(),
+        }
+    }
+}
+
 #[derive(Clone, Debug, Deserialize, XmlSerialize, PartialEq, Eq)]
 pub struct Periods {
     #[serde(rename = "$value")]
