@@ -71,7 +71,7 @@ pub struct TransitionsGroups {
     #[serde(rename = "@Id")]
     pub id: String,
 
-    #[serde(rename = "$value")]
+    #[serde(rename = "$value", default)]
     pub transitions: Vec<Transitions>,
 }
 
