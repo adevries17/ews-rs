@@ -45,7 +45,7 @@ impl Default for TimeZoneDefinition {
 
 #[derive(Clone, Debug, Deserialize, XmlSerialize, PartialEq, Eq)]
 pub struct Periods {
-    #[serde(rename = "$value")]
+    #[serde(rename = "$value", default)]
     pub period: Vec<Period>,
 }
 
@@ -78,7 +78,7 @@ pub struct TransitionsGroups {
 #[derive(Clone, Debug, Deserialize, XmlSerialize, PartialEq, Eq)]
 #[serde(rename_all = "PascalCase")]
 pub struct Transitions {
-    #[serde(rename = "$value")]
+    #[serde(rename = "$value", default)]
     pub transitions: Vec<Transition>,
 }
 
