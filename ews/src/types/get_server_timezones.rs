@@ -16,7 +16,6 @@ pub struct GetServerTimeZones {
     #[serde(rename = "@ReturnFullTimeZoneData")]
     pub return_full_time_zone_data: Option<bool>,
 
-    #[xml_struct(ns_prefix = "m")]
     pub ids: Option<Vec<TimeZoneId>>,
 }
 
@@ -45,8 +44,7 @@ mod tests {
             }]),
         };
 
-        //let expected = r#"<m:GetServerTimeZones ReturnFullTimeZoneData="true"><m:Ids><t:Id>Eastern Standard Time</Id></m:Ids></m:GetServerTimeZones>"#;
-        let expected = r#"<GetServerTimeZones xmlns="http://schemas.microsoft.com/exchange/services/2006/messages" ReturnFullTimeZoneData="true"><m:Ids><t:Id>Eastern Standard Time</t:Id></m:Ids></GetServerTimeZones>"#;
+        let expected = r#"<GetServerTimeZones xmlns="http://schemas.microsoft.com/exchange/services/2006/messages" ReturnFullTimeZoneData="true"><Ids><t:Id>Eastern Standard Time</t:Id></Ids></GetServerTimeZones>"#;
 
         assert_serialized_content(&get_server_timezones, "GetServerTimeZones", expected);
     }
