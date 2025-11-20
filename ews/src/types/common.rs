@@ -1141,6 +1141,34 @@ pub struct AttachmentId {
     pub root_item_change_key: Option<String>,
 }
 
+/// Identifies additional properties to return in a response to a `GetAttachment` request.
+///
+/// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/attachmentshape>
+#[derive(Clone, Debug, Default, XmlSerialize)]
+pub struct AttachmentShape {
+    /// Specifies whether the Multipurpose Internet Mail Extensions (MIME) content of an item or attachment is returned in the response.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/includemimecontent>
+    pub include_mime_content: Option<bool>,
+
+    /// Identifies how the body text is formatted in the response.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/bodytype>
+    pub body_type: Option<BodyType>,
+
+    /// Specifies whether potentially unsafe HTML content is filtered from an attachment.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/filterhtmlcontent>
+    pub filter_html_content: Option<bool>,
+
+    /// A list of properties which should be included in addition to those
+    /// implied by other fields.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/additionalproperties>
+    #[xml_struct(ns_prefix = "t")]
+    pub additional_properties: Option<Vec<PathToElement>>,
+}
+
 /// The content of an item, represented according to MIME (Multipurpose Internet
 /// Mail Extensions).
 ///
