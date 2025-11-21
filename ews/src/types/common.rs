@@ -1410,4 +1410,17 @@ mod tests {
 
         Ok(())
     }
+
+    #[test]
+    fn test_serialize_attachment_id() {
+        let attachment_id = AttachmentId {
+            id: "asdf".to_string(),
+            root_item_id: None,
+            root_item_change_key: None,
+        };
+
+        let expected = r#"<AttachmentId Id="asdf"/>"#;
+
+        assert_serialized_content(&attachment_id, "AttachmentId", expected);
+    }
 }
