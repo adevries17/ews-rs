@@ -14,7 +14,7 @@ pub struct GetAttachment {
     /// Identifies additional properties to return in a response to a `GetAttachment` request.
     ///
     /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/attachmentshape>
-    pub attachment_shape: AttachmentShape,
+    pub attachment_shape: Option<AttachmentShape>,
 
     /// Contains an array of attachment identifiers.
     ///
@@ -40,19 +40,19 @@ mod tests {
     use super::*;
 
     #[test]
-    fn test_serialize_get_attachment_request() {
+    fn test_serialize_get_attachment() {
         let get_attachment = GetAttachment {
-            attachment_shape: AttachmentShape::default(),
+            attachment_shape: None,
             attachment_ids: vec![
                 AttachmentId {
                     id: "AAAtAEFkbWluaX".to_string(),
-                    root_item_id: None,
-                    root_item_change_key: None,
+                    root_item_id: Some("".to_string()),
+                    root_item_change_key: Some("".to_string()),
                 },
                 AttachmentId {
                     id: "AASSDDFF".to_string(),
-                    root_item_id: None,
-                    root_item_change_key: None,
+                    root_item_id: Some("".to_string()),
+                    root_item_change_key: Some("".to_string()),
                 },
             ],
         };
