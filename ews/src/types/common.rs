@@ -1141,6 +1141,32 @@ pub struct AttachmentId {
     pub root_item_change_key: Option<String>,
 }
 
+/// The AttachmentShape element identifies additional properties to return in a response to a `GetAttachment` request.
+///
+/// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/attachmentshape>
+#[derive(Clone, Debug, XmlSerialize)]
+pub struct AttachmentShape {
+    /// Specifies whether the Multipurpose Internet Mail Extensions (MIME) content of an item or attachment is returned in the response.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/includemimecontent>
+    pub include_mime_content: Option<bool>,
+
+    /// Identifies how the body text is formatted in the response.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/bodytype>
+    pub body_type: Option<BodyType>,
+
+    /// Specifies whether potentially unsafe HTML content is filtered from an attachment.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/filterhtmlcontent>
+    pub filter_html_content: Option<bool>,
+
+    /// Identifies additional properties to return in a response.
+    ///
+    /// See <https://learn.microsoft.com/en-us/exchange/client-developer/web-service-reference/additionalproperties>
+    pub additional_properties: Option<Vec<PathToElement>>,
+}
+
 /// The content of an item, represented according to MIME (Multipurpose Internet
 /// Mail Extensions).
 ///
@@ -1381,5 +1407,18 @@ mod tests {
         );
 
         Ok(())
+    }
+
+    #[test]
+    fn test_serialize_attachment_id() {
+        let data = AttachmentId {
+            id: "ThisIsId".to_string(),
+            root_item_id: Some("ThisIsRootId".to_string()),
+            root_item_change_key: Some("ThisIsRootChangeKey".to_string()),
+};
+
+        let expected_xml_content = r#"<AttachmentId Id="ThisIsId" RootItemId="ThisIsRootId" RootItemChangeKey="ThisIsRootChangeKey"/>"#;
+
+        assert_serialized_content(&data, "AttachmentId", expected_xml_content);
     }
 }
